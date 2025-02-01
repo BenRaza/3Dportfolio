@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import './style.css';
-import { scene, renderer } from './core/sceneManager.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { scene, renderer, canvas } from './core/sceneManager.js';
 import { cameras } from './core/camerasManager.js';
 import './core/lightsManager.js';
 import Torus from './3Dmodels/Example3DModel.js';
@@ -14,6 +15,9 @@ const gui = new dat.GUI()
 const stats = Stats()
 document.body.appendChild(stats.dom)
 
+// Controls
+const controls = new OrbitControls(cameras.main, canvas)
+controls.enableDamping = true
 
 // Create 3D objects
 const torus = new Torus();
@@ -36,7 +40,7 @@ const tick = () =>
     torus.update(elapsedTime);
 
     // Update Orbital Controls
-    // controls.update()
+    controls.update()
 
     // Render
     renderer.render(scene, cameras.main)
