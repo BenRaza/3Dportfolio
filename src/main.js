@@ -9,8 +9,9 @@ import Torus from './3Dmodels/Example3DModel.js';
 import Stats from 'three/examples/jsm/libs/stats.module'
 import * as dat from 'dat.gui'
 
-
-
+//Temporary grid
+const gridHelper = new THREE.GridHelper(10, 10, 0xaec6cf, 0xaec6cf)
+scene.add(gridHelper)
 
 //Post Process
 initPostProcessing(renderer, scene, cameras.main);
