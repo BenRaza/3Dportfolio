@@ -3,7 +3,8 @@ import './style.css';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { scene, renderer, canvas } from './core/sceneManager.js';
 import { cameras } from './core/camerasManager.js';
-import { handleHover, interactableObjects,initPostProcessing, renderScene  } from './core/raycaster';
+import { updateRaycast, handleHover, handleClick, interactableObjects } from './core/interactionManager.js';
+import { initPostProcessing, renderScene } from './core/postProcessing.js';
 import './core/lightsManager.js';
 import Torus from './3Dmodels/Example3DModel.js';
 import Stats from 'three/examples/jsm/libs/stats.module'
@@ -13,8 +14,13 @@ import * as dat from 'dat.gui'
 const gridHelper = new THREE.GridHelper(10, 10, 0xaec6cf, 0xaec6cf)
 scene.add(gridHelper)
 
+
+
+
+// Initialisation du post-processing
+initPostProcessing(scene, cameras.main);
 //Post Process
-initPostProcessing(renderer, scene, cameras.main);
+//initPostProcessing(renderer, scene, cameras.main);
 
 // Debug
 const gui = new dat.GUI();

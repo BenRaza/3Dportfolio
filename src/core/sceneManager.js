@@ -14,6 +14,10 @@ const sizes = {
     height: window.innerHeight
 }
 
+//Scroll
+let scrollPercent = 0;
+const animationScripts = [];
+
 
 
 
@@ -21,27 +25,26 @@ const sizes = {
 const canvas = document.querySelector('canvas.webgl')
 
 
-window.addEventListener('resize', () =>
-{
-    // Update sizes
-    sizes.width = window.innerWidth
-    sizes.height = window.innerHeight
-
-    // Update renderer
-    renderer.setSize(sizes.width, sizes.height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-})
-
-
-
-
-// Renderer
+// Renderer with native MSAA
+//WARNING NOT CURRENTLY USED BECAUSE OF POST PROCESS
 const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
+    canvas: canvas,
+    antialias : true,
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+//renderer.setClearColor(0x000000, 1); // black bg
 
 
+window.addEventListener('resize', () =>
+    {
+        // Update sizes
+        sizes.width = window.innerWidth
+        sizes.height = window.innerHeight
+    
+        // Update renderer
+        renderer.setSize(sizes.width, sizes.height)
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    })
 
 export { scene, renderer, sizes, canvas };
