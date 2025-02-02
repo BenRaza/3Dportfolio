@@ -49,36 +49,67 @@ export function handleHover(camera) {
 
     if (newHoveredObject !== hoveredObject) {
         console.log("hovered");
+
+
         if (hoveredObject) resetHighlight(hoveredObject);
+
         hoveredObject = newHoveredObject;
+
+
         if (hoveredObject) highlight(hoveredObject);
     }
 }
 
-//Highlight at hover
 
-function highlight(object) {
-    /*object.userData.originalMaterial = object.material; 
-    object.material = new THREE.MeshBasicMaterial({
-        color: 0xffffff,
-        wireframe: true
-    });*/
-    outlinePass.selectedObjects = [object]; 
-}
+// HIGHLIGHT
+
 
 function resetHighlight(object) {
     //object.material = object.userData.originalMaterial;
     outlinePass.selectedObjects = [];
+
+}
+function highlight(object) {
+    if (!object.userData.originalMaterial) {
+        object.userData.originalMaterial = object.material.clone(); // save a copy of the material
+    }
+    /*object.material = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        wireframe: true
+    });*/
+    outlinePass.selectedObjects = [object];
 }
 
 
-//CLICK
-export function handleClick(scene) {
-    if (hoveredObject) {
 
-        if (selectedObject) resetHighlight(selectedObject); 
-        selectedObject = hoveredObject;
-        selectedObject.material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+
+//CLICK
+export function handleClick() {
+    if (hoveredObject) {
+        if (selectedObject === hoveredObject) {
+            handleUnselect();
+            console.log("deselect on object");
+        } else {
+            if (selectedObject) resetSelection(selectedObject); 
+            selectedObject = hoveredObject;
+            selectedObject.material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+        }
+    } else {
+        handleUnselect(); 
+        console.log("deselect next to object");
+    }
+}
+
+export function handleUnselect() {
+    if (selectedObject) {
+        resetSelection(selectedObject);
+        selectedObject = null;
+    }
+}
+//RESET SELECTION
+function resetSelection(object) {
+    if (object.userData.originalMaterial) {
+        object.material = object.userData.originalMaterial.clone();
     }
 }
 
