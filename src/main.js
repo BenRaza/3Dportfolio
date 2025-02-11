@@ -1,12 +1,12 @@
 import * as THREE from 'three';
 import './style.css';
 import ThirdPersonCamera from './core/ThirdPersonCameraManager.js';
-//import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { scene, renderer, canvas } from './core/sceneManager.js';
 import { cameras } from './core/camerasManager.js';
 import { updateRaycast, handleHover, handleClick, interactableObjects } from './core/interactionManager.js';
 import { initPostProcessing, renderScene } from './core/postProcessing.js';
-import './core/lightsManager.js';
+import { lights } from './core/lightsManager.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import Torus from './3Dmodels/Example3DModel.js';
 import Stats from 'three/examples/jsm/libs/stats.module';
 import * as dat from 'dat.gui';
@@ -28,11 +28,29 @@ initPostProcessing(scene, cameras.main);
 //Post Process
 //initPostProcessing(renderer, scene, cameras.main);
 
+//Background
+scene.background = new THREE.Color(0x111);
+
+//lights
+scene.add(lights.pointLight);
+scene.add(lights.ambientLight);
 
 
+// Instantiate a loader
+const loader = new GLTFLoader();
 
 
-
+loader.load( '/tree1.glb', function ( gltf )
+    {
+        const tree = gltf.scene;
+        tree.position.set(0, 0, 0); 
+        tree.scale.set(1, 1, 1);
+        scene.add(tree);
+    },
+    function (error) {
+        console.error('Il y a eu une erreur pendant le chargement : ', error);
+    }
+);
 
 
 // Création du torus (target character)
@@ -45,13 +63,6 @@ interactableObjects.add(torus.getMesh());
 //Camera
 const thirdPersonCam = new ThirdPersonCamera(cameras.main, torus.getMesh(), canvas);
 
-//position de la caméra
-/*
-//NOT WORKING ANYMORE
-let initialCameraPosition = new THREE.Vector3(0, 0, 2);
-let initialCameraQuaternion = new THREE.Quaternion();
-const targetCameraPosition = new THREE.Vector3(5, 5, 5);
-*/
 //SCROLL
 let scrollPercent = 0;
 const animationScripts = [];
@@ -75,23 +86,7 @@ animationScripts.push({
     },
 });
 
-/*
-//NOT WORKING ANYMORE
-animationScripts.push({
-    start: 60,
-    end: 80,
-    func: () => {
-        //normalisation du scroll entre 0 et 1
-        const t = scalePercent(60, 80, scrollPercent);
 
-
-        // Interpolation de la position
-        cameras.main.position.lerpVectors(initialCameraPosition, targetCameraPosition, t);
-        cameras.main.quaternion.slerp(initialCameraQuaternion, 1 - t);
-
-        
-    },
-});*/
 
 const playScrollAnimations = () => {
     animationScripts.forEach((animation) => {
@@ -118,7 +113,9 @@ const tick = () => {
     // Mettre à jour le raycasting
     handleHover(cameras.main);
 
-    // Post Processing
+    // Render
+    //renderer.render(scene, cameras.main);
+    //Post Processing
     renderScene();
 
     // Relancer l'animation

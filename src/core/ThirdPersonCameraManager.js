@@ -41,16 +41,16 @@ class ThirdPersonCamera {
     }
 
     onMouseDown() {
-        if (event.button === 1) {
+
             this.isDragging = true;
-        }
+        
         
     }
 
     onMouseUp() {
-        if (event.button === 1) {
+
             this.isDragging = false;
-        }
+        
         
     }
 
@@ -68,6 +68,7 @@ class ThirdPersonCamera {
         );
         this.camera.lookAt(this.target.position);
     }
+
 }
 
 export default ThirdPersonCamera;
