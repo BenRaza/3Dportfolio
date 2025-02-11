@@ -6,7 +6,7 @@ import { cameras } from './core/camerasManager.js';
 import { handleHover,  interactableObjects } from './core/interactionManager.js';
 import { initPostProcessing, renderScene } from './core/postProcessing.js';
 import { lights } from './core/lightsManager.js';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import Torus from './3Dmodels/Example3DModel.js';
 import Stats from 'three/examples/jsm/libs/stats.module';
 import * as dat from 'dat.gui';
