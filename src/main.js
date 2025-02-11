@@ -54,9 +54,9 @@ loader.load( '/tree1.glb', function ( gltf )
         tree.scale.set(1, 1, 1);
         scene.add(tree);
     },
-    function (error) {
-        console.error('Il y a eu une erreur pendant le chargement : ', error);
-    }
+    // function (error) {
+    //     console.error('Il y a eu une erreur pendant le chargement : ', error);
+    // }
 );
 
 
