@@ -4,6 +4,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
 import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js';
 import { renderer } from './sceneManager.js';
+import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 
 let composer, outlinePass;
 
@@ -25,6 +26,8 @@ export function initPostProcessing(scene, camera) {
     composer.addPass(renderPass);
     composer.addPass(outlinePass);
 
+    const glitchPass = new GlitchPass();
+    //composer.addPass(glitchPass);
     //ANTI ALIASING SMAA
     const smaaPass = new SMAAPass(window.innerWidth, window.innerHeight);
     composer.addPass(smaaPass);

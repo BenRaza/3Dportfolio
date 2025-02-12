@@ -1,13 +1,13 @@
 import * as THREE from 'three';
 import './style.css';
-import ThirdPersonCamera from './core/ThirdPersonCameraManager.js';
+import ThirdPersonCamera from './core/ThirdPersonCameraClass.js';
 import { scene, canvas } from './core/sceneManager.js';
 import { cameras } from './core/camerasManager.js';
 import { handleHover,  interactableObjects } from './core/interactionManager.js';
 import { initPostProcessing, renderScene } from './core/postProcessing.js';
 import { lights } from './core/lightsManager.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import Torus from './3Dmodels/Example3DModel.js';
+import Torus from './core/Example3DModel.js';
 import Stats from 'three/examples/jsm/libs/stats.module';
 import * as dat from 'dat.gui';
 import { lerp, scalePercent } from './core/logicLibrary.js';

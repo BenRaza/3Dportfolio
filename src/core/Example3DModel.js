@@ -15,3 +15,9 @@ export default class Torus {
         this.mesh.rotation.y = 0.5 * elapsedTime;
     }
 }
+
+export  class Object3D{
+    constructor(){
+
+    }
+}
